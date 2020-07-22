@@ -26,9 +26,7 @@ stages:
        echo See https://aka.ms/yaml
       displayName: 'Run a multi-line script'
   - job: Generate_Artifacts
-    
     steps:
-    
     - task: PowerShell@2
       inputs:
        filePath: '$(System.DefaultWorkingDirectory)\Euryale\New-TestFile.ps1'
@@ -36,5 +34,11 @@ stages:
 
 
 - stage: Deploy_Dev
+  jobs:
+  - deployment: DevelopmentDeployment
+    environment: Dev
 
 - stage: Devploy_QE
+  jobs:
+  - deployment: DevelopmentDeployment
+    environment: QE
