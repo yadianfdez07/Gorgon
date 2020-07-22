@@ -30,6 +30,8 @@ stages:
     steps:
     
     - task: PowerShell@2
+      inputs:
+       filePath: '$(System.DefaultWorkingDirectory)\Euryale\New-TestFile.ps1'
 
 
 
