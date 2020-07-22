@@ -9,11 +9,30 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- stage: Build_Artifacts
+  
+  jobs:
+  - job: Random
+    
+    steps:
+    
+    - script: echo Hello, world!
+      displayName: 'Run a one-line script'
+       
+    - script: |
+       echo Add other tasks to build, test, and deploy your project.
+       echo See https://aka.ms/yaml
+      displayName: 'Run a multi-line script'
+  - job: Generate_Artifacts
+    
+    steps:
+    
+    - task: PowerShell@2
+
+
+
+- stage: Deploy_Dev
+
+- stage: Devploy_QE
