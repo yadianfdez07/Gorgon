@@ -33,7 +33,7 @@ stages:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.SourcesDirectory)\text.txt'
-        ArtifactName: 'drop'
+        ArtifactName: 'buildArtifacts'
         publishLocation: 'Container'
 
 
@@ -51,7 +51,7 @@ stages:
       inputs:
         buildType: 'current'
         downloadType: 'single'
-        artifactName: 'drop'
+        artifactName: 'buildArtifacts'
         downloadPath: '$(System.ArtifactsDirectory)'
 
     - task: replacetokens@3
@@ -86,7 +86,7 @@ stages:
       inputs:
         buildType: 'current'
         downloadType: 'single'
-        artifactName: 'drop'
+        artifactName: 'buildArtifacts'
         downloadPath: '$(System.ArtifactsDirectory)'
 
     - task: replacetokens@3
