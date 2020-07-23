@@ -1,0 +1,2 @@
+variables:
+    STAGE_VAR: 'QE'

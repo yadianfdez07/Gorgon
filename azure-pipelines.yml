@@ -41,7 +41,7 @@ stages:
 
 - stage: Deploy_Dev
   variables: 
-   STAGE_VAR: 'Dev'
+   - template: development_vars.yml
   jobs:
   - deployment: DevelopmentDeployment
     environment: Dev
@@ -78,7 +78,7 @@ stages:
 
 - stage: Deploy_QE
   variables: 
-   STAGE_VAR: 'QE'
+   - template: qe_vars.yml
   jobs:
   - deployment: QEDeployment
     environment: QE
