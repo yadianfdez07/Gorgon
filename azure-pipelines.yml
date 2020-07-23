@@ -39,11 +39,28 @@ stages:
 
 
 - stage: Deploy_Dev
+  variables: 
+   STAGE_VAR: 'Dev'
   jobs:
   - deployment: DevelopmentDeployment
     environment: Dev
+  - job:
+    steps:
+    - task: replacetokens@3
+      inputs:
+       targetFiles: '**/*.txt'
+       encoding: 'auto'
+       writeBOM: true
+       actionOnMissing: 'warn'
+       keepToken: false
+       tokenPrefix: '#{'
+       tokenSuffix: '}#'
+       useLegacyPattern: false
+       enableTelemetry: true
 
 - stage: Devploy_QE
+  variables: 
+   STAGE_VAR: 'QE'
   jobs:
   - deployment: DevelopmentDeployment
     environment: QE

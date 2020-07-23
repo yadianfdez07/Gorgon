@@ -6,4 +6,4 @@ param (
 
 )
 
-Set-Content -Path text.txt -Value "Hello World #{stage} .... $content ...";
+Set-Content -Path text.txt -Value "Hello World #{STAGE_VAR}# .... $content ...";
