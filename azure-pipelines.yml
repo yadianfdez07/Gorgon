@@ -46,17 +46,25 @@ stages:
     environment: Dev
   - job:
     steps:
+
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
     - task: replacetokens@3
       inputs:
-       targetFiles: '**/*.txt'
-       encoding: 'auto'
-       writeBOM: true
-       actionOnMissing: 'warn'
-       keepToken: false
-       tokenPrefix: '#{'
-       tokenSuffix: '}#'
-       useLegacyPattern: false
-       enableTelemetry: true
+        targetFiles: '**/*.txt'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '#{'
+        tokenSuffix: '}#'
+        useLegacyPattern: false
+        enableTelemetry: true
 
 - stage: Devploy_QE
   variables: 
