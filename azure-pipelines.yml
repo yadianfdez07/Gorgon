@@ -46,6 +46,7 @@ stages:
   - deployment: DevelopmentDeployment
     environment: Dev
   - job:
+    displayName: Deploy to development
     dependsOn: DevelopmentDeployment
     steps:
 
@@ -75,13 +76,14 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
-- stage: Devploy_QE
+- stage: Deploy_QE
   variables: 
    STAGE_VAR: 'QE'
   jobs:
   - deployment: QEDeployment
     environment: QE
   - job:
+    displayName: Deploy to QE
     dependsOn: QEDeployment
     steps:
   
