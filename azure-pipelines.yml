@@ -26,6 +26,7 @@ stages:
        echo See https://aka.ms/yaml
       displayName: 'Run a multi-line script'
   - job: Generate_Artifacts
+    dependsOn: Random
     steps:
     - task: PowerShell@2
       inputs:
@@ -45,6 +46,7 @@ stages:
   - deployment: DevelopmentDeployment
     environment: Dev
   - job:
+    dependsOn: DevelopmentDeployment
     steps:
 
     - task: DownloadBuildArtifacts@0
@@ -77,9 +79,10 @@ stages:
   variables: 
    STAGE_VAR: 'QE'
   jobs:
-  - deployment: DevelopmentDeployment
+  - deployment: QEDeployment
     environment: QE
   - job:
+    dependsOn: QEDeployment
     steps:
   
     - task: DownloadBuildArtifacts@0
