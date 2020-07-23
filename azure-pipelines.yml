@@ -50,9 +50,16 @@ stages:
     dependsOn: DevelopmentDeployment
     steps:
 
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'buildArtifacts'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
     - task: replacetokens@3
       inputs:
-        rootDirectory: '$(Agent.BuildDirectory)'
+        rootDirectory: '$(System.ArtifactsDirectory)'
         targetFiles: '**/*.txt'
         encoding: 'auto'
         writeBOM: true
