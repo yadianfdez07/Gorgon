@@ -32,7 +32,7 @@ stages:
        filePath: '$(System.DefaultWorkingDirectory)\Euryale\New-TestFile.ps1'
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(System.DefaultWorkingDirectory)\Euryale\text.txt'
+        PathtoPublish: '$(Build.SourcesDirectory)\text.txt'
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
