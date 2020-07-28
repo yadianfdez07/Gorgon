@@ -2,6 +2,8 @@ parameters:
   spn: ''
 
 steps:
+  - script: echo ${{parameters.type}} ${{ parameters.spn }}
+     
   - task: DownloadBuildArtifacts@0
     inputs:
       buildType: 'current'

@@ -78,21 +78,5 @@ stages:
       runOnce:
         deploy:
           steps: 
-          - task: replacetokens@3
-            inputs:
-              rootDirectory: '$(Agent.BuildDirectory)'
-              targetFiles: '**/*.txt'
-              encoding: 'auto'
-              writeBOM: true
-              actionOnMissing: 'warn'
-              keepToken: false
-              tokenPrefix: '#{'
-              tokenSuffix: '}#'
-              useLegacyPattern: false
-              enableTelemetry: true
-
-          - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: '$(Agent.BuildDirectory)\buildArtifacts\text.txt'
-              ArtifactName: 'drop'
-              publishLocation: 'Container'
+          - template: 'deploy.yml'
+          parameters: {type: 'primary', spn: 'SPN_Test'}
