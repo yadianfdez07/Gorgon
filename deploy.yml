@@ -1,5 +1,9 @@
 parameters:
   spn: ''
+  variablesTemplate: ''
+
+variables:
+  - template: ${{parameters.variablesTemplate}}
 
 steps:
   - script: echo ${{parameters.type}} ${{ parameters.spn }}

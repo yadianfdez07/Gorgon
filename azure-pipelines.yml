@@ -49,12 +49,10 @@ stages:
         deploy:
           steps:
           - template: 'deploy.yml'
-            parameters: {type: 'primary_Dev', spn: 'SPN_Dev'}
+            parameters: {type: 'primary_Dev', spn: 'SPN_Dev', variablesTemplate: ''}
 
 
 - stage: Deploy_QE
-  variables: 
-   - template: qe_vars.yml
   jobs:
   - deployment: QEDeployment
     environment: QE
@@ -63,4 +61,4 @@ stages:
         deploy:
           steps: 
           - template: 'deploy.yml'
-            parameters: {type: 'primary_QE', spn: 'SPN_QE'}
+            parameters: {type: 'primary_QE', spn: 'SPN_QE', variablesTemplate: 'qe_vars.yml'}
