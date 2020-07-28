@@ -3,10 +3,10 @@ parameters:
 
 steps:
   - script: echo ${{parameters.type}} ${{ parameters.spn }}
-  
+
   - task: replacetokens@3
     inputs:
-      rootDirectory: '$(System.ArtifactsDirectory)'
+      rootDirectory: '$(Agent.BuildDirectory)'
       targetFiles: '**/*.txt'
       encoding: 'auto'
       writeBOM: true
@@ -19,6 +19,6 @@ steps:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(System.ArtifactsDirectory)\buildArtifacts\text.txt'
+      PathtoPublish: '$(Agent.BuildDirectory)\buildArtifacts\text.txt'
       ArtifactName: 'drop'
       publishLocation: 'Container'
