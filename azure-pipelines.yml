@@ -79,4 +79,4 @@ stages:
         deploy:
           steps: 
           - template: 'deploy.yml'
-          parameters: {type: 'primary', spn: 'SPN_Test'}
+            parameters: {type: 'primary', spn: 'SPN_Test'}
