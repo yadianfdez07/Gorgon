@@ -50,7 +50,7 @@ stages:
           steps:
           - task: replacetokens@3
             inputs:
-              rootDirectory: '$(System.ArtifactsDirectory)'
+              rootDirectory: '$(Agent.BuildDirectory)'
               targetFiles: '**/*.txt'
               encoding: 'auto'
               writeBOM: true
@@ -63,7 +63,7 @@ stages:
 
           - task: PublishBuildArtifacts@1
             inputs:
-              PathtoPublish: '$(System.ArtifactsDirectory)\buildArtifacts\text.txt'
+              PathtoPublish: '$(Agent.BuildDirectory)\buildArtifacts\text.txt'
               ArtifactName: 'drop'
               publishLocation: 'Container'
 
@@ -77,17 +77,10 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:  
-          - task: DownloadBuildArtifacts@0
-            inputs:
-              buildType: 'current'
-              downloadType: 'single'
-              artifactName: 'buildArtifacts'
-              downloadPath: '$(System.ArtifactsDirectory)'
-
+          steps: 
           - task: replacetokens@3
             inputs:
-              rootDirectory: '$(System.ArtifactsDirectory)'
+              rootDirectory: '$(Agent.BuildDirectory)'
               targetFiles: '**/*.txt'
               encoding: 'auto'
               writeBOM: true
@@ -100,6 +93,6 @@ stages:
 
           - task: PublishBuildArtifacts@1
             inputs:
-              PathtoPublish: '$(System.ArtifactsDirectory)\buildArtifacts\text.txt'
+              PathtoPublish: '$(Agent.BuildDirectory)\buildArtifacts\text.txt'
               ArtifactName: 'drop'
               publishLocation: 'Container'
