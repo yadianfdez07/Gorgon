@@ -48,24 +48,8 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: replacetokens@3
-            inputs:
-              rootDirectory: '$(Agent.BuildDirectory)'
-              targetFiles: '**/*.txt'
-              encoding: 'auto'
-              writeBOM: true
-              actionOnMissing: 'warn'
-              keepToken: false
-              tokenPrefix: '#{'
-              tokenSuffix: '}#'
-              useLegacyPattern: false
-              enableTelemetry: true
-
-          - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: '$(Agent.BuildDirectory)\buildArtifacts\text.txt'
-              ArtifactName: 'drop'
-              publishLocation: 'Container'
+          - template: 'deploy.yml'
+            parameters: {type: 'primary_Dev', spn: 'SPN_Dev'}
 
 
 - stage: Deploy_QE
@@ -79,4 +63,4 @@ stages:
         deploy:
           steps: 
           - template: 'deploy.yml'
-            parameters: {type: 'primary', spn: 'SPN_Test'}
+            parameters: {type: 'primary_QE', spn: 'SPN_QE'}
