@@ -44,71 +44,62 @@ stages:
   jobs:
   - deployment: DevelopmentDeployment
     environment: Dev
-  - job:
-    displayName: Deploy to development
-    dependsOn: DevelopmentDeployment
-    steps:
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: replacetokens@3
+            inputs:
+              rootDirectory: '$(System.ArtifactsDirectory)'
+              targetFiles: '**/*.txt'
+              encoding: 'auto'
+              writeBOM: true
+              actionOnMissing: 'warn'
+              keepToken: false
+              tokenPrefix: '#{'
+              tokenSuffix: '}#'
+              useLegacyPattern: false
+              enableTelemetry: true
 
-    - task: DownloadBuildArtifacts@0
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'buildArtifacts'
-        downloadPath: '$(System.ArtifactsDirectory)'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(System.ArtifactsDirectory)\buildArtifacts\text.txt'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
 
-    - task: replacetokens@3
-      inputs:
-        rootDirectory: '$(System.ArtifactsDirectory)'
-        targetFiles: '**/*.txt'
-        encoding: 'auto'
-        writeBOM: true
-        actionOnMissing: 'warn'
-        keepToken: false
-        tokenPrefix: '#{'
-        tokenSuffix: '}#'
-        useLegacyPattern: false
-        enableTelemetry: true
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(System.ArtifactsDirectory)\buildArtifacts\text.txt'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
-
-        
 - stage: Deploy_QE
   variables: 
    - template: qe_vars.yml
   jobs:
   - deployment: QEDeployment
     environment: QE
-  - job:
-    displayName: Deploy to QE
-    dependsOn: QEDeployment
-    steps:
-  
-    - task: DownloadBuildArtifacts@0
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'buildArtifacts'
-        downloadPath: '$(System.ArtifactsDirectory)'
+    strategy:
+      runOnce:
+        deploy:
+          steps:  
+          - task: DownloadBuildArtifacts@0
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'buildArtifacts'
+              downloadPath: '$(System.ArtifactsDirectory)'
 
-    - task: replacetokens@3
-      inputs:
-        rootDirectory: '$(System.ArtifactsDirectory)'
-        targetFiles: '**/*.txt'
-        encoding: 'auto'
-        writeBOM: true
-        actionOnMissing: 'warn'
-        keepToken: false
-        tokenPrefix: '#{'
-        tokenSuffix: '}#'
-        useLegacyPattern: false
-        enableTelemetry: true
+          - task: replacetokens@3
+            inputs:
+              rootDirectory: '$(System.ArtifactsDirectory)'
+              targetFiles: '**/*.txt'
+              encoding: 'auto'
+              writeBOM: true
+              actionOnMissing: 'warn'
+              keepToken: false
+              tokenPrefix: '#{'
+              tokenSuffix: '}#'
+              useLegacyPattern: false
+              enableTelemetry: true
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(System.ArtifactsDirectory)\buildArtifacts\text.txt'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(System.ArtifactsDirectory)\buildArtifacts\text.txt'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'

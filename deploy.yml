@@ -1,0 +1,29 @@
+parameters:
+  spn: ''
+
+steps:
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'buildArtifacts'
+      downloadPath: '$(System.ArtifactsDirectory)'
+
+  - task: replacetokens@3
+    inputs:
+      rootDirectory: '$(System.ArtifactsDirectory)'
+      targetFiles: '**/*.txt'
+      encoding: 'auto'
+      writeBOM: true
+      actionOnMissing: 'warn'
+      keepToken: false
+      tokenPrefix: '#{'
+      tokenSuffix: '}#'
+      useLegacyPattern: false
+      enableTelemetry: true
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(System.ArtifactsDirectory)\buildArtifacts\text.txt'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
