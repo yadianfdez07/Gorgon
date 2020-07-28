@@ -38,7 +38,6 @@ stages:
         publishLocation: 'Container'
 
 
-
 - stage: Deploy_Dev
   variables: 
    - template: development_vars.yml
@@ -76,6 +75,7 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
+        
 - stage: Deploy_QE
   variables: 
    - template: qe_vars.yml
