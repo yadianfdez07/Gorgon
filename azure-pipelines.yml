@@ -53,6 +53,8 @@ stages:
 
 
 - stage: Deploy_QE
+  variables: 
+  - template: qe_vars.yml
   jobs:
   - deployment: QEDeployment
     environment: QE
