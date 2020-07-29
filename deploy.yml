@@ -2,11 +2,8 @@ parameters:
   spn: ''
   variablesTemplate: ''
 
-variables:
-  - template: ${{parameters.variablesTemplate}}
-
 steps:
-  - script: echo ${{parameters.type}} ${{ parameters.spn }}
+  - script: echo ${{parameters.type}} ${{ parameters.spn }} ${{parameters.variablesTemplate}}
 
   - task: replacetokens@3
     inputs:

@@ -49,7 +49,7 @@ stages:
         deploy:
           steps:
           - template: 'deploy.yml'
-            parameters: {type: 'primary_Dev', spn: 'SPN_Dev', variablesTemplate: ''}
+            parameters: {type: 'primary_Dev', spn: 'SPN_Dev', variablesTemplate: 'dev_vars.yml'}
 
 
 - stage: Deploy_QE
